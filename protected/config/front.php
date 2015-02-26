@@ -2,6 +2,11 @@
 
 return CMap::mergeArray(
                 require(dirname(__FILE__) . '/main.php'), array(
+            // autoloading model and component classes
+            'import' => array(
+                'application.models.*',
+                'application.components.*',
+            ),
             // Put front-end settings there.
             'components' => array(
             // uncomment the following to enable URLs in path-format

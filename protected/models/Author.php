@@ -118,4 +118,21 @@ class Author extends CActiveRecord {
         }
     }
 
+    public static function get_author_list() {
+        $array = Author::model()->findAll(
+                array(
+                    'select' => 'id,author_name',
+                    'condition' => '',
+                    'order' => 'RAND()',
+                    'limit' => '20',
+        ));
+        echo '<h3>AUTHOR</h3>';
+        echo '<ul class="nav nav-list">';
+        foreach ($array as $key => $value) {
+            echo '<li>' . CHtml::link('<i class="fa fa-angle-right"></i> ' . $value['author_name'] . ' [' . Resource::count_author($value['id']) . ']', array('resource/author', 'id' => $value['id']), array('target' => '_blank')) . '</li>';
+        }
+        echo '<li>' . CHtml::link('<i class="fa fa-user"></i> MORE AUTHOR', array('resource/authors'), array('target' => '_blank')) . '</li>';
+        echo '</ul>';
+    }
+
 }

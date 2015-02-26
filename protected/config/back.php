@@ -1,10 +1,29 @@
 <?php
 
+//Yii::setPathOfAlias('bootstrap', dirname(__FILE__) . '/../extensions/bootstrap');
+//Yii::setPathOfAlias('yiiwheels', dirname(__FILE__) . '/../extensions/yiiwheels');
 return CMap::mergeArray(
                 require(dirname(__FILE__) . '/main.php'), array(
             // Put back-end settings there.
             'theme' => 'admin',
             'name' => 'Islamic Resource Center',
+            // path aliases
+            'aliases' => array(
+                // yiistrap configuration
+                'bootstrap' => realpath(__DIR__ . '/../extensions/bootstrap'), // change this if necessary
+                // yiiwheels configuration
+                'yiiwheels' => realpath(__DIR__ . '/../extensions/yiiwheels'), // change if necessary
+            ),
+            // autoloading model and component classes
+            'import' => array(
+                'application.models.*',
+                'application.components.*',
+                // import paths - yiistrap configuration
+                'bootstrap.helpers.TbHtml',
+                'bootstrap.helpers.TbArray',
+                'bootstrap.behaviors.TbWidget',
+                'bootstrap.widgets.*'
+            ),
             'modules' => array(
                 // uncomment the following to enable the Gii tool
                 'gii' => array(
@@ -14,8 +33,17 @@ return CMap::mergeArray(
                 ),
             ),
             'components' => array(
+                // yiistrap configuration
+                'bootstrap' => array(
+                    //'class' => 'bootstrap.components.Bootstrap',
+                    'class' => 'bootstrap.components.TbApi',
+                ),
+                // yiiwheels configuration
+                'yiiwheels' => array(
+                    'class' => 'yiiwheels.YiiWheels',
+                ),
                 // uncomment the following to enable URLs in path-format
-                /*'urlManager' => array(
+                'urlManager' => array(
                     'urlFormat' => 'path',
                     'showScriptName' => true,
                     'urlSuffix' => '.html',
@@ -25,12 +53,12 @@ return CMap::mergeArray(
                         '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                         '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                     ),
-                ),*/
+                ),
             ),
             'params' => array(
                 // this is used in contact page
                 'Companyname' => 'Islamic Resource Center',
-            	'adminEmail' => 'info@ircbd.org',
+                'adminEmail' => 'info@ircbd.org',
                 'pageSize' => 10,
             ),
                 )

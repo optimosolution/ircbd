@@ -52,12 +52,13 @@ class SiteController extends Controller {
      * when an action is not explicitly requested by users.
      */
     public function actionIndex() {
-        $this->pageTitle = Yii::app()->name;
         Yii::app()->clientScript->registerMetaTag(Yii::app()->name . ' - Site description.', 'description');
         Yii::app()->clientScript->registerMetaTag("keywords,here", 'keywords');
-        // renders the view file 'protected/views/site/index.php'
-        // using the default layout 'protected/views/layouts/main.php'
-        $this->render('index');
+
+        $dataProvider = new CActiveDataProvider('Resource');
+        $this->render('index', array(
+            'dataProvider' => $dataProvider,
+        ));
     }
 
     /**

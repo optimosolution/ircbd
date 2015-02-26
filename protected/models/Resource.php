@@ -151,4 +151,68 @@ class Resource extends CActiveRecord {
         return parent::model($className);
     }
 
+    public static function get_hits($id) {
+        $value = Resource::model()->findByAttributes(array('id' => $id));
+        if (empty($value->hits)) {
+            return 0;
+        } else {
+            return $value->hits;
+        }
+    }
+
+    public static function count_category($id) {
+        $value = Resource::model()->findAll(array('condition' => 'status=1 AND category=' . $id,));
+        return count($value);
+    }
+
+    public static function count_author($id) {
+        $value = Resource::model()->findAll(array('condition' => 'status=1 AND author_id=' . (int) $id,));
+        return count($value);
+    }
+
+    public static function count_for($id) {
+        $value = Resource::model()->findAll(array('condition' => 'status=1 AND resource_for=' . (int) $id,));
+        return count($value);
+    }
+
+    public static function get_popular() {
+        $array = Resource::model()->findAll(
+                array(
+                    'select' => 'id,title,category,main_source',
+                    'condition' => 'status=1',
+                    'order' => 'hits DESC',
+                    'limit' => '10',
+        ));
+        echo '<ul>';
+        foreach ($array as $key => $value) {
+            echo '<li>' . CHtml::link('<i class="fa fa-sign-out"></i> ' . $value['title'], $value['main_source'], array('target' => '_blank')) . ' <small>[' . ResourceCategory::get_title($value['category']) . ']</small></li>';
+        }
+        echo '</ul>';
+    }
+
+    public static function get_recent() {
+        $array = Resource::model()->findAll(
+                array(
+                    'select' => 'id,title,category,main_source',
+                    'condition' => 'status=1',
+                    'order' => 'created_on DESC, id DESC',
+                    'limit' => '10',
+        ));
+        echo '<ul>';
+        foreach ($array as $key => $value) {
+            echo '<li>' . CHtml::link('<i class="fa fa-sign-out"></i> ' . $value['title'], $value['main_source'], array('target' => '_blank')) . ' <small>[' . ResourceCategory::get_title($value['category']) . ']</small></li>';
+        }
+        echo '</ul>';
+    }
+
+    public static function get_picture($id) {
+        $value = Resource::model()->findByAttributes(array('id' => $id));
+        $filePath = Yii::app()->basePath . '/../uploads/resource/' . $value->img_location;
+        if ((is_file($filePath)) && (file_exists($filePath))) {
+            return CHtml::image(Yii::app()->baseUrl . '/uploads/resource/' . $value->img_location, 'Picture', array('alt' => $value->title, 'class' => 'img-circle', 'title' => $value->title, 'style' => 'width:100px;'));
+        } else {
+            return CHtml::image(Yii::app()->baseUrl . '/uploads/resource/default.png', 'Picture', array('alt' => $value->title, 'class' => 'img-circle', 'title' => $value->title, 'style' => 'width:100px;'));
+        }
+    }
+
 }

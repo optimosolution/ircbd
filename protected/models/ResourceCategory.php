@@ -102,4 +102,19 @@ class ResourceCategory extends CActiveRecord {
         }
     }
 
+    public static function get_category_list() {
+        $array = ResourceCategory::model()->findAll(
+                array(
+                    'select' => 'id,resource_category',
+                    'condition' => '',
+                    'order' => 'ordering, resource_category',
+        ));
+        echo '<h3>CATEGORY</h3>';
+        echo '<ul>';
+        foreach ($array as $key => $value) {
+            echo '<li>' . CHtml::link('<i class="fa fa-sign-out"></i> ' . $value['resource_category'], array('resource/category', 'id' => $value['id']), array('target' => '_blank')) . ' [' . Resource::count_category($value['id']) . ']</li>';
+        }
+        echo '</ul>';
+    }
+
 }
