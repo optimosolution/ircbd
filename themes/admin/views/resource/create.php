@@ -9,6 +9,20 @@ $this->breadcrumbs = array(
     'Resources' => array('admin'),
     'Create',
 );
+Yii::app()->clientScript->registerScript('banner', "
+    $('#Resource_img_location').ace_file_input({
+        no_file: 'No file ...',
+        btn_choose: 'Choose',
+        btn_change: 'Change',
+        droppable: false,
+        onchange: null,
+        thumbnail: false, //| true | large
+        //whitelist:'gif|png|jpg|jpeg'
+        //blacklist:'exe|php'
+        //onchange:''
+        //
+    });
+");
 ?>
 <div class="widget-box">
     <div class="widget-header">

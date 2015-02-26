@@ -33,13 +33,13 @@ $this->breadcrumbs = array(
                         'type' => 'raw',
                         'value' => Banner:: getCategoryName($model->catid),
                     ),
-					array(
+                    array(
                         'name' => 'name',
                         'type' => 'raw',
                         'value' => $model->name,
                         'htmlOptions' => array('style' => "text-align:left;"),
                     ),
-					array(
+                    array(
                         'name' => 'alias',
                         'type' => 'raw',
                         'value' => $model->alias,

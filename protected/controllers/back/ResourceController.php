@@ -7,7 +7,7 @@ class ResourceController extends BackEndController {
      * using two-column layout. See 'protected/views/layouts/column2.php'.
      */
     public $layout = '//layouts/column2';
-    
+
     protected function beforeAction($action) {
         $access = $this->checkAccess(Yii::app()->controller->id, Yii::app()->controller->action->id);
         if ($access == 1) {
@@ -69,14 +69,34 @@ class ResourceController extends BackEndController {
      */
     public function actionCreate() {
         $model = new Resource;
+        $path = Yii::app()->basePath . '/../uploads/resource';
+        if (!is_dir($path)) {
+            mkdir($path);
+        }
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Resource'])) {
             $model->attributes = $_POST['Resource'];
-            if ($model->save()) {
-                $this->redirect(array('view', 'id' => $model->id));
+            if ($model->validate()) {
+                $model->created_on = new CDbExpression('NOW()');
+                //Picture upload script
+                if (@!empty($_FILES['Resource']['name']['img_location'])) {
+                    $model->img_location = $_POST['Resource']['img_location'];
+
+                    if ($model->validate(array('img_location'))) {
+                        $model->img_location = CUploadedFile::getInstance($model, 'img_location');
+                    } else {
+                        $model->img_location = '';
+                    }
+                    $model->img_location->saveAs($path . '/' . time() . '_' . str_replace(' ', '_', strtolower($model->img_location)));
+                    $model->img_location = time() . '_' . str_replace(' ', '_', strtolower($model->img_location));
+                }
+                if ($model->save()) {
+                    Yii::app()->user->setFlash('success', 'Data was saved successfully');
+                    $this->redirect(array('admin'));
+                }
             }
         }
 
@@ -92,14 +112,40 @@ class ResourceController extends BackEndController {
      */
     public function actionUpdate($id) {
         $model = $this->loadModel($id);
+        $previuosFileName = $model->img_location;
+        $path = Yii::app()->basePath . '/../uploads/resource';
+        if (!is_dir($path)) {
+            mkdir($path);
+        }
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
         if (isset($_POST['Resource'])) {
             $model->attributes = $_POST['Resource'];
-            if ($model->save()) {
-                $this->redirect(array('view', 'id' => $model->id));
+            if ($model->validate()) {
+                //Picture upload script
+                if (@!empty($_FILES['Resource']['name']['img_location'])) {
+                    $model->img_location = $_POST['Resource']['img_location'];
+
+                    if ($model->validate(array('img_location'))) {
+                        $myFile = $path . '/' . $previuosFileName;
+                        if ((is_file($myFile)) && (file_exists($myFile))) {
+                            unlink($myFile);
+                        }
+                        $model->img_location = CUploadedFile::getInstance($model, 'img_location');
+                    } else {
+                        $model->img_location = '';
+                    }
+                    $model->img_location->saveAs($path . '/' . time() . '_' . str_replace(' ', '_', strtolower($model->img_location)));
+                    $model->img_location = time() . '_' . str_replace(' ', '_', strtolower($model->img_location));
+                } else {
+                    $model->img_location = $previuosFileName;
+                }
+                if ($model->save()) {
+                    Yii::app()->user->setFlash('success', 'Data was saved successfully');
+                    $this->redirect(array('admin'));
+                }
             }
         }
 

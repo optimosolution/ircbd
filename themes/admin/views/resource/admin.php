@@ -93,6 +93,13 @@ $('.search-form form').submit(function(){
                         'htmlOptions' => array('style' => "text-align:left;", 'title' => 'For'),
                     ),
                     array(
+                        'name' => 'author_id',
+                        'type' => 'raw',
+                        'value' => 'Author::get_author_name($data->author_id)',
+                        'filter' => CHtml::activeDropDownList($model, 'author_id', CHtml::listData(Author::model()->findAll(array('condition' => '', "order" => "ordering, author_name")), 'id', 'author_name'), array('empty' => 'All')),
+                        'htmlOptions' => array('style' => "text-align:left;", 'title' => 'Author'),
+                    ),
+                    array(
                         'name' => 'ordering',
                         'type' => 'raw',
                         'value' => '$data->ordering',

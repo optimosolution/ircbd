@@ -76,7 +76,8 @@ class ResourceTypeController extends BackEndController {
         if (isset($_POST['ResourceType'])) {
             $model->attributes = $_POST['ResourceType'];
             if ($model->save()) {
-                $this->redirect(array('view', 'id' => $model->id));
+                Yii::app()->user->setFlash('success', 'Data was saved successfully');
+                $this->redirect(array('admin'));
             }
         }
 
@@ -99,7 +100,8 @@ class ResourceTypeController extends BackEndController {
         if (isset($_POST['ResourceType'])) {
             $model->attributes = $_POST['ResourceType'];
             if ($model->save()) {
-                $this->redirect(array('view', 'id' => $model->id));
+                Yii::app()->user->setFlash('success', 'Data was saved successfully');
+                $this->redirect(array('admin'));
             }
         }
 
