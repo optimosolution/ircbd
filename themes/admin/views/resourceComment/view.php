@@ -1,18 +1,18 @@
 <?php
-/* @var $this ResourceTypeController */
-/* @var $model ResourceType */
+/* @var $this ResourceCommentController */
+/* @var $model ResourceComment */
 ?>
 
 <?php
-$this->pageTitle = 'Resource Type details - ' . Yii::app()->name;
+$this->pageTitle = 'Resource Comment details - ' . Yii::app()->name;
 $this->breadcrumbs = array(
-    'Resource Types' => array('admin'),
-    $model->resource_type,
+    'Resource Comments' => array('admin'),
+    $model->full_name,
 );
 ?>
 <div class="widget-box">
     <div class="widget-header">
-        <h5>Details Resource Type (<?php echo $model->resource_type; ?>)</h5>
+        <h5>Details Resource Comment</h5>
         <div class="widget-toolbar">
             <a data-action="settings" href="#"><i class="icon-cog"></i></a>
             <a data-action="reload" href="#"><i class="icon-refresh"></i></a>
@@ -36,12 +36,26 @@ $this->breadcrumbs = array(
             'attributes' => array(
                 'id',
                 array(
-                    'name' => 'resource_type',
+                    'name' => 'resource',
                     'type' => 'raw',
-                    'value' => $model->resource_type,
+                    'value' => Resource::get_title($model->resource),
+                    'htmlOptions' => array('style' => "text-align:left;"),
+                ),
+                'full_name',
+                'email',
+                'website',
+                'comment',
+                array(
+                    'name' => 'created',
+                    'value' => UserAdmin::get_date_time($model->created),
+                ),
+                array(
+                    'name' => 'status',
+                    'value' => $model->status ? "Active" : "Inactive",
                 ),
             ),
         ));
         ?>
     </div>
 </div><!--/.widget-body -->
+</div><!--/.widget-box -->

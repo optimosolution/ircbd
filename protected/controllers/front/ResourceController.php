@@ -26,7 +26,7 @@ class ResourceController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'authors', 'author', 'category', 'type'),
+                'actions' => array('index', 'view', 'authors', 'author', 'category', 'type', 'ajax', 'search', 'writer'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -41,6 +41,19 @@ class ResourceController extends Controller {
                 'users' => array('*'),
             ),
         );
+    }
+
+    public function actionAjax() {
+        $request = trim($_GET['term']);
+        if ($request != '') {
+            $model = SearchText::model()->findAll(array("condition" => "search_text like '$request%'", 'limit' => '10'));
+            $data = array();
+            foreach ($model as $get) {
+                $data[] = $get->search_text;
+            }
+            $this->layout = 'empty';
+            echo json_encode($data);
+        }
     }
 
     public function actionAuthors() {
@@ -86,13 +99,54 @@ class ResourceController extends Controller {
         ));
     }
 
+    public function actionSearch() {
+        $criteria = new CDbCriteria;
+        $criteria->compare('status', 1, false, 'AND');
+        if (isset($_REQUEST['q']) && !empty($_REQUEST['q']))
+            $criteria->addCondition('search_text LIKE "' . $_REQUEST['q'] . '%"');
+        if (isset($_REQUEST['category']) && !empty($_REQUEST['category']))
+            $criteria->compare('category', (int) $_REQUEST['category'], false, 'AND');
+        if (isset($_REQUEST['for']) && !empty($_REQUEST['for']))
+            $criteria->compare('resource_for', (int) $_REQUEST['for'], false, 'AND');
+        if (isset($_REQUEST['author']) && !empty($_REQUEST['author']))
+            $criteria->compare('author_id', (int) $_REQUEST['author'], false, 'AND');
+
+        $dataProvider = new CActiveDataProvider('Resource', array(
+            'criteria' => $criteria,
+        ));
+        $criteria->order = 'created_on DESC, id DESC';
+        $this->render('search', array(
+            'dataProvider' => $dataProvider,
+        ));
+    }
+
     /**
      * Displays a particular model.
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
+        Yii::app()->db->createCommand('UPDATE {{resource}} SET hits = hits+1 WHERE id=' . $id)->execute();
+
+        //get comments
+        $model_comment = new ResourceComment;
+        if (isset($_POST['ResourceComment'])) {
+            $model_comment->attributes = $_POST['ResourceComment'];
+            $model_comment->created = new CDbExpression('NOW()');
+            $model_comment->resource = $id;
+
+            if ($model_comment->save())
+                $this->redirect(array('resource/view', 'id' => $id));
+        }
+
         $this->render('view', array(
             'model' => $this->loadModel($id),
+            'model_comment' => $model_comment,
+        ));
+    }
+
+    public function actionWriter($id) {
+        $this->render('writer', array(
+            'model' => $this->loadAuthor($id),
         ));
     }
 
@@ -191,6 +245,13 @@ class ResourceController extends Controller {
      */
     public function loadModel($id) {
         $model = Resource::model()->findByPk($id);
+        if ($model === null)
+            throw new CHttpException(404, 'The requested page does not exist.');
+        return $model;
+    }
+
+    public function loadAuthor($id) {
+        $model = Author::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;

@@ -151,6 +151,15 @@ class Resource extends CActiveRecord {
         return parent::model($className);
     }
 
+    public static function get_title($id) {
+        $value = Resource::model()->findByAttributes(array('id' => $id));
+        if (empty($value->title)) {
+            return null;
+        } else {
+            return $value->title;
+        }
+    }
+
     public static function get_hits($id) {
         $value = Resource::model()->findByAttributes(array('id' => $id));
         if (empty($value->hits)) {
@@ -158,6 +167,11 @@ class Resource extends CActiveRecord {
         } else {
             return $value->hits;
         }
+    }
+
+    public static function count_resource() {
+        $value = Resource::model()->findAll();
+        return count($value);
     }
 
     public static function count_category($id) {

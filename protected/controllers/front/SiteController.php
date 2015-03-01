@@ -12,7 +12,7 @@ class SiteController extends Controller {
     public function accessRules() {
         return array(
             array('allow', // allow all users to perform 'index' and 'view' actions
-                'actions' => array('index', 'view', 'contact', 'login', 'logout', 'captcha'),
+                'actions' => array('index', 'view', 'contact', 'login', 'logout', 'captcha', 'subscribe'),
                 'users' => array('*'),
             ),
             array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -52,13 +52,25 @@ class SiteController extends Controller {
      * when an action is not explicitly requested by users.
      */
     public function actionIndex() {
-        Yii::app()->clientScript->registerMetaTag(Yii::app()->name . ' - Site description.', 'description');
-        Yii::app()->clientScript->registerMetaTag("keywords,here", 'keywords');
+        Yii::app()->clientScript->registerMetaTag('Collection of Islamic Speeches, Naats and Books. Official Website of Dawat-e-Islami, A global non-political movement for the propagation of Quran and Sunnah.', 'description');
+        Yii::app()->clientScript->registerMetaTag("islam, quran, sunnah, tabligh, jamat, muslim, maulana ilyas qadri, barelvi, sunni, islamic books, naat, islamic speeches, islamic tv channel, fatwa, darulifta, ahlesunnat, rohani ilaj", 'keywords');
 
         $dataProvider = new CActiveDataProvider('Resource');
         $this->render('index', array(
             'dataProvider' => $dataProvider,
         ));
+    }
+
+    public function actionSubscribe() {
+        $model = new Subscriber;
+
+        if (isset($_POST['Subscriber'])) {
+            $model->attributes = $_POST['Subscriber'];
+            if ($model->save()) {
+                Yii::app()->user->setFlash('success', 'Data was saved successfully');
+                //$this->redirect(array('site/index'));
+            }
+        }
     }
 
     /**

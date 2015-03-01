@@ -78,14 +78,13 @@
                         <div class="navbar-collapse nav-main-collapse collapse">
                             <nav class="nav-main">
                                 <ul id="topMain" class="nav nav-pills nav-main">
-                                    <?php echo '<li class="mega-menu active">' . CHtml::link('HOME', array('site/index'), array('class' => '')) . '</li>'; ?>
+                                    <?php echo '<li class="mega-menu active">' . CHtml::link('<i class="fa fa-home"></i> HOME', array('site/index'), array('class' => '')) . '</li>'; ?>
                                     <?php
                                     $array = ResourceFor::model()->findAll(array('order' => 'ordering'));
                                     foreach ($array as $key => $value) {
                                         echo '<li class="mega-menu">' . CHtml::link(strtoupper($value['resource_for']) . ' <span>[' . Resource::count_for($value['id']) . ']</span>', array('resource/index', 'id' => $value['id']), array('class' => '')) . '</li>';
                                     }
                                     ?>
-                                    <?php echo '<li class="mega-menu">' . CHtml::link('CONTACT', '#', array('class' => '')) . '</li>'; ?>
                                 </ul>
                             </nav>
                         </div>
@@ -102,21 +101,14 @@
                         <!-- col #1 -->
                         <div class="logo_footer col-md-8">
                             <p class="block">
-                            <p>
-                                <strong><em>Why Choose Us?</em></strong> 
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur imperdiet hendrerit volutpat. Sed in nunc nec ligula consectetur mollis in vel justo. Vestibulum ante ipsum. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur imperdiet hendrerit volutpat. Sed in nunc nec ligula consectetur mollis in vel justo. Vestibulum ante ipsum.
-                                <a href="#">View More <i class="fa fa-arrow-right"></i></a>
-                            </p>
-                            <h2>+880 1727 211792</h2>
+                            <p class="dropcap">Our aims to promote acquiring Islamic knowledge and to create an atmosphere of open and honest discussion pertaining to Islam. We encourage all Muslims to participate and we actively seek out Muslim scholars to help increase the quality of discussion. We also recognize that there are many different streams of thoughts that exist amongst the Muslims and that even the Muslims scholars do not carry a uniform understanding of Islam and interpretation of its texts.</p>
+                            <h2><i class="fa fa-mobile"></i> +880 1727 211792</h2>
                             </p>
                         </div>
                         <!-- /col #1 -->
                         <!-- col #2 -->
-                        <div class="spaced col-md-4">
-                            <h4>About <strong>Us</strong></h4>
-                            <p>
-                                Incredibly beautiful responsive Bootstrap Template for Corporate and Creative Professionals.
-                            </p>
+                        <div class="spaced col-md-4">                            
+                            <p class="dropcap"><?php echo Yii::app()->name; ?> flagship site that provides social network built around Qur'an, Hadith, and other classical sources of Islamic knowledge.</p>
                             <h4><small><strong>Subscribe to our Newsletter</strong></small></h4>
                             <form id="newsletterSubscribe" method="post" action="#" class="input-group">
                                 <input required type="email" class="form-control" name="newsletter_email" id="newsletter_email" value="" placeholder="E-mail Address">
@@ -131,7 +123,7 @@
                 <hr />
                 <div class="copyright">
                     <div class="container text-center fsize12">
-                        Copyright &copy; <?php echo date('Y'); ?> <?php echo Yii::app()->name; ?>
+                        Copyright &copy; <?php echo date('Y'); ?> <?php echo Yii::app()->name; ?>. Developed by <?php echo CHtml::link('Optimo Solution', 'http://www.optimosolution.com', array('target' => '_blank')); ?>
                     </div>
                 </div>
             </footer>
@@ -139,7 +131,6 @@
             <a href="#" id="toTop"></a>
         </div><!-- /#wrapper -->
         <!-- JAVASCRIPT FILES -->
-        <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/plugins/jquery-2.1.1.min.js"></script>
         <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/plugins/jquery.isotope.js"></script>
         <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/plugins/masonry.js"></script>
         <script type="text/javascript" src="<?php echo Yii::app()->theme->baseUrl; ?>/assets/plugins/bootstrap/js/bootstrap.min.js"></script>

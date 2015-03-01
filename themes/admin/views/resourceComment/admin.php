@@ -1,10 +1,10 @@
 <?php
-/* @var $this ResourceCategoryController */
-/* @var $model ResourceCategory */
+/* @var $this ResourceCommentController */
+/* @var $model ResourceComment */
 
-$this->pageTitle = 'Resource Categories - ' . Yii::app()->name;
+$this->pageTitle = 'Resource Comments - ' . Yii::app()->name;
 $this->breadcrumbs = array(
-    'Resource Categories' => array('admin'),
+    'Resource Comments' => array('admin'),
     'Manage',
 );
 
@@ -14,7 +14,7 @@ $('.search-button').click(function(){
 	return false;
 });
 $('.search-form form').submit(function(){
-	$('#resource-category-grid').yiiGridView('update', {
+	$('#resource-comment-grid').yiiGridView('update', {
 		data: $(this).serialize()
 	});
 	return false;
@@ -23,7 +23,7 @@ $('.search-form form').submit(function(){
 ?>
 <div class="widget-box">
     <div class="widget-header">
-        <h5>Manage Resource Category</h5>
+        <h5>Manage Resource Comments</h5>
         <div class="widget-toolbar">
             <a data-action="settings" href="#"><i class="icon-cog"></i></a>
             <a data-action="reload" href="#"><i class="icon-refresh"></i></a>
@@ -39,7 +39,7 @@ $('.search-form form').submit(function(){
     </div><!--/.widget-header -->
     <div class="widget-body">
         <div class="widget-main">
-             <div class="search-form" style="display:none">
+            <div class="search-form" style="display:none">
                 <?php
                 $this->renderPartial('_search', array(
                     'model' => $model,
@@ -49,7 +49,7 @@ $('.search-form form').submit(function(){
 
             <?php
             $this->widget('bootstrap.widgets.TbGridView', array(
-                'id' => 'resource-category-grid',
+                'id' => 'resource-comment-grid',
                 'dataProvider' => $model->search(),
                 'filter' => $model,
                 'columns' => array(
@@ -60,22 +60,26 @@ $('.search-form form').submit(function(){
                         'htmlOptions' => array('style' => "text-align:center;width:100px;", 'title' => 'ID'),
                     ),
                     array(
-                        'name' => 'resource_category',
+                        'name' => 'resource',
                         'type' => 'raw',
-                        'value' => '$data->resource_category',
-                        'htmlOptions' => array('style' => "text-align:left;", 'title' => 'Resource Category'),
+                        'value' => 'Resource::get_title($data->resource)',
+                        'htmlOptions' => array('style' => "text-align:left;", 'title' => 'Resource'),
+                    ),
+                    'full_name',
+                    'email',
+                    'website',
+                    'comment',
+                    array(
+                        'name' => 'created',
+                        'type' => 'raw',
+                        'value' => 'UserAdmin::get_date_time($data->created)',
+                        'htmlOptions' => array('style' => "text-align:left;", 'title' => 'Created'),
                     ),
                     array(
-                        'name' => 'slug',
-                        'type' => 'raw',
-                        'value' => '$data->slug',
-                        'htmlOptions' => array('style' => "text-align:left;", 'title' => 'Slug'),
-                    ),
-                    array(
-                        'name' => 'ordering',
-                        'type' => 'raw',
-                        'value' => '$data->ordering',
-                        'htmlOptions' => array('style' => "text-align:center;width:100px;", 'title' => 'Ordering'),
+                        'name' => 'status',
+                        'value' => '$data->status?Yii::t(\'app\',\'Active\'):Yii::t(\'app\', \'Inactive\')',
+                        'filter' => array('' => Yii::t('app', 'All'), '0' => Yii::t('app', 'Inactive'), '1' => Yii::t('app', 'Active')),
+                        'htmlOptions' => array('style' => "text-align:center;"),
                     ),
                     array(
                         'header' => 'Actions',

@@ -37,22 +37,48 @@
             <!-- /BLOG ARTICLE LIST -->
             <!-- BLOG SIDEBAR -->
             <div class="col-md-3 col-sm-3">
-                <!-- blog search -->
+                <!-- search -->
+                <?php
+                $form = $this->beginWidget('CActiveForm', array(
+                    'id' => 'search-form',
+                    'enableAjaxValidation' => false,
+                    'action' => Yii::app()->createUrl('resource/search'),
+                    'htmlOptions' => array('class' => 'input-group')
+                ));
+                ?>
+                <?php
+                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+                    'name' => 'q',
+                    // additional javascript options for the autocomplete plugin
+                    'options' => array(
+                        'minLength' => '1',
+                    ),
+                    'source' => $this->createUrl("resource/ajax"),
+                    'htmlOptions' => array(
+                        'class' => 'form-control',
+                        'placeholder' => 'Search Resource',
+                    ),
+                ));
+                ?>
+                <span class="input-group-btn">
+                    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                </span>                   
+                <?php $this->endWidget(); ?>
+                <!-- counters -->
                 <div class="widget">
-                    <form id="newsletterSubscribe" method="post" action="http://theme.stepofweb.com/Epona/v1.2/HTML/php/newsletter.php" class="input-group">
-                        <input type="text" class="form-control" name="s" value="" placeholder="Blog Search" />
-                        <span class="input-group-btn">
-                            <button class="btn btn-primary"><i class="fa fa-search"></i></button>
-                        </span>
-                    </form>
+                    <div class="row text-center countTo">
+                        <div class="col-md-12 col-sm-12">
+                            <span class="boxed radius3">
+                                <strong class="styleColor" data-to="<?php echo Resource::count_resource(); ?>"><?php echo Resource::count_resource(); ?></strong>
+                                <label>TOTAL RESOURCES</label>
+                            </span>
+                        </div>                    
+                    </div>
                 </div>
-
                 <!-- RECENT,POPULAR -->
                 <div class="widget">
-
                     <!-- TABS -->
                     <div class="tabs nomargin-top">
-
                         <!-- tabs -->
                         <ul class="nav nav-tabs nav-justified">
                             <li class="active"><a href="#tab1" data-toggle="tab">POPULAR</a></li>
@@ -83,14 +109,7 @@
                 <!-- tags -->
                 <div class="widget">
                     <h4>TAGS</h4>
-                    <a class="tag label label-default light" href="#"><i class="fa fa-tags"></i> Business</a> 
-                    <a class="tag label label-default light" href="#"><i class="fa fa-tags"></i> Design</a> 
-                    <a class="tag label label-default light" href="#"><i class="fa fa-tags"></i> Technology</a>
-                    <a class="tag label label-default light" href="#"><i class="fa fa-tags"></i> Audio</a> 
-                    <a class="tag label label-default light" href="#"><i class="fa fa-tags"></i> Gallery</a> 
-                    <a class="tag label label-default light" href="#"><i class="fa fa-tags"></i> Shortcode</a> 
-                    <a class="tag label label-default light" href="#"><i class="fa fa-tags"></i> Video</a> 
-                    <a class="tag label label-default light" href="#"><i class="fa fa-tags"></i> Audio</a> 
+<!--                    <a class="tag label label-default light" href="#"><i class="fa fa-tags"></i> Business</a>                     -->
                 </div>
             </div>
             <!-- /BLOG SIDEBAR -->

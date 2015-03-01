@@ -27,7 +27,7 @@ return array(
         ),
     ),
     // application components
-    'components' => array(
+    'components' => array(        
         'user' => array(
             // enable cookie-based authentication
             'allowAutoLogin' => true,
