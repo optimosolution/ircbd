@@ -80,10 +80,10 @@ class ResourceController extends BackEndController {
         if (isset($_POST['Resource'])) {
             $model->attributes = $_POST['Resource'];
             if (isset($model->related_resource))
-                    $model->related_resource = implode(",", $model->attributes['related_resource']);
-            
+                $model->related_resource = implode(",", $model->attributes['related_resource']);
+
             if ($model->validate()) {
-                $model->created_on = new CDbExpression('NOW()');                
+                $model->created_on = new CDbExpression('NOW()');
                 //Picture upload script
                 if (@!empty($_FILES['Resource']['name']['img_location'])) {
                     $model->img_location = $_POST['Resource']['img_location'];
@@ -98,7 +98,11 @@ class ResourceController extends BackEndController {
                 }
                 if ($model->save()) {
                     Yii::app()->user->setFlash('success', 'Data was saved successfully');
-                    $this->redirect(array('admin'));
+                    if (isset($_POST['savennew'])) {
+                        $this->redirect(array('create'));
+                    } else {
+                        $this->redirect(array('admin'));
+                    }
                 }
             }
         }
@@ -150,7 +154,11 @@ class ResourceController extends BackEndController {
                 }
                 if ($model->save()) {
                     Yii::app()->user->setFlash('success', 'Data was saved successfully');
-                    $this->redirect(array('admin'));
+                    if (isset($_POST['savennew'])) {
+                        $this->redirect(array('create'));
+                    } else {
+                        $this->redirect(array('admin'));
+                    }
                 }
             }
         } else {

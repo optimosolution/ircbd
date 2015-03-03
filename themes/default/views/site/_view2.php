@@ -19,13 +19,12 @@
                 <?php echo Resource::get_picture($data->id); ?>
             </div>
             <div class="col-sm-10">
-                <h2 class="article-title">
+                <h4 class="article-title">
                     <?php echo CHtml::link($data->title . ' [' . $data->code . ']', array('resource/view', 'id' => $data->id), array('target' => '_blank')); ?>
-                </h2>
+                </h4>
+                <p><?php echo mb_substr($data->sort_description, 0, 250, 'UTF-8') . '...'; ?></p>
             </div>
-        </div>        
-        <!-- blog short preview -->
-        <p><?php echo mb_substr($data->sort_description, 0, 250, 'UTF-8') . '...'; ?></p>
+        </div>                
     </div>
 </div>
 <!-- /article - text -->

@@ -8,20 +8,20 @@ $form = $this->beginWidget('CActiveForm', array(
         ));
 ?>
 <div class="row well">
+    <div class="col-sm-5">
+        <?php echo CHtml::textField('q', isset($_REQUEST['q']) ? CHtml::encode($_REQUEST['q']) : '', array('maxlength' => 250, 'placeholder' => 'Search text', 'class' => 'form-control')); ?>
+    </div>
     <div class="col-sm-2">
         <?php echo CHtml::dropDownList('category', isset($_REQUEST['category']) ? CHtml::encode($_REQUEST['category']) : '', CHtml::listData(ResourceCategory::model()->findAll(array('condition' => '', 'order' => 'ordering')), 'id', 'resource_category'), array('empty' => '-category-', 'class' => 'form-control')); ?>
     </div>
     <div class="col-sm-2">
-        <?php echo CHtml::dropDownList('for', isset($_REQUEST['for']) ? CHtml::encode($_REQUEST['for']) : '', CHtml::listData(ResourceFor::model()->findAll(array('condition' => '', 'order' => 'ordering')), 'id', 'resource_for'), array('empty' => '-for-', 'class' => 'form-control')); ?>
+        <?php echo CHtml::dropDownList('for', isset($_REQUEST['for']) ? CHtml::encode($_REQUEST['for']) : '', CHtml::listData(ResourceFor::model()->findAll(array('condition' => '', 'order' => 'ordering')), 'id', 'resource_for'), array('empty' => '-type-', 'class' => 'form-control')); ?>
     </div>
     <div class="col-sm-2">
         <?php echo CHtml::dropDownList('author', isset($_REQUEST['author']) ? CHtml::encode($_REQUEST['author']) : '', CHtml::listData(Author::model()->findAll(array('condition' => '', 'order' => 'ordering')), 'id', 'author_name'), array('empty' => '-author-', 'class' => 'form-control')); ?>
-    </div>
-    <div class="col-sm-4">
-        <?php echo CHtml::textField('q', isset($_REQUEST['q']) ? CHtml::encode($_REQUEST['q']) : '', array('maxlength' => 250, 'placeholder' => 'Search text', 'class' => 'form-control')); ?>
-    </div>
-    <div class="col-sm-2">
-        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> SEARCH</button>
+    </div>    
+    <div class="col-sm-1">
+        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
     </div>
 </div>
 <?php $this->endWidget(); ?>

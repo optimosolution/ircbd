@@ -19,16 +19,11 @@
                 <?php echo Resource::get_picture($data->id); ?>
             </div>
             <div class="col-sm-10">
-                <h2 class="article-title">
+                <h4 class="article-title">
                     <?php echo CHtml::link($data->title . ' [' . $data->code . ']', array('resource/view', 'id' => $data->id), array('target' => '_blank')); ?>
-                </h2>
+                </h4>
+                <?php echo mb_substr($data->sort_description, 0, 250, 'UTF-8') . '...'; ?>
             </div>
-        </div>        
-        <!-- blog short preview -->
-        <p><?php echo mb_substr($data->sort_description, 0, 250, 'UTF-8') . '...'; ?></p>
-        <!-- read more button -->
-        <div class="text-right">
-            <?php echo CHtml::link('<i class="fa fa-sign-out"></i> READ MORE', array('resource/view', 'id' => $data->id), array('class' => 'read-more btn btn-xs', 'target' => '_blank')); ?>
         </div>
     </div>
 </div>

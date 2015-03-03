@@ -82,6 +82,14 @@ $this->pageTitle = $model->title . ' - ' . Yii::app()->name;
             </footer>
             <?php $this->endWidget(); ?>
             <!-- /COMMENT FORM -->
+            <div class="widget">
+                <div class="sky-form boxed">
+                    <header>RELATED ARTICLE</header>
+                    <fieldset>
+                        <?php Resource::get_related($model->id); ?>
+                    </fieldset>                        
+                </div>                    
+            </div>
         </div>
         <!-- /COMMENTS -->
     </div>

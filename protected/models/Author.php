@@ -126,7 +126,6 @@ class Author extends CActiveRecord {
                     'order' => 'RAND()',
                     'limit' => '30',
         ));
-        echo '<h3>AUTHOR</h3>';
         echo '<ul class="nav nav-list">';
         foreach ($array as $key => $value) {
             echo '<li>' . CHtml::link('<i class="fa fa-angle-right"></i> ' . $value['author_name'] . ' [' . Resource::count_author($value['id']) . ']', array('resource/author', 'id' => $value['id']), array('target' => '_blank')) . '</li>';

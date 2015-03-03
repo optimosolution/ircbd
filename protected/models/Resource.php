@@ -205,7 +205,7 @@ class Resource extends CActiveRecord {
         ));
         echo '<ul>';
         foreach ($array as $key => $value) {
-            echo '<li>' . CHtml::link('<i class="fa fa-sign-out"></i> ' . $value['title'], $value['main_source'], array('target' => '_blank')) . ' <small>[' . ResourceCategory::get_title($value['category']) . ']</small></li>';
+            echo '<li>' . CHtml::link('<i class="fa fa-sign-out"></i> ' . $value['title'], array('resource/view', 'id' => $value['id']), array()) . ' <small>[' . ResourceCategory::get_title($value['category']) . ']</small></li>';
         }
         echo '</ul>';
     }
@@ -220,7 +220,7 @@ class Resource extends CActiveRecord {
         ));
         echo '<ul>';
         foreach ($array as $key => $value) {
-            echo '<li>' . CHtml::link('<i class="fa fa-sign-out"></i> ' . $value['title'], $value['main_source'], array('target' => '_blank')) . ' <small>[' . ResourceCategory::get_title($value['category']) . ']</small></li>';
+            echo '<li>' . CHtml::link('<i class="fa fa-sign-out"></i> ' . $value['title'], array('resource/view', 'id' => $value['id']), array()) . ' <small>[' . ResourceCategory::get_title($value['category']) . ']</small></li>';
         }
         echo '</ul>';
     }
@@ -239,9 +239,9 @@ class Resource extends CActiveRecord {
         $value = Resource::model()->findByAttributes(array('id' => $id));
         $filePath = Yii::app()->basePath . '/../uploads/resource/' . $value->img_location;
         if ((is_file($filePath)) && (file_exists($filePath))) {
-            return CHtml::image(Yii::app()->baseUrl . '/uploads/resource/' . $value->img_location, 'Picture', array('alt' => $value->title, 'class' => 'img-responsive', 'title' => $value->title, 'style' => 'height:120px;'));
+            return CHtml::image(Yii::app()->baseUrl . '/uploads/resource/' . $value->img_location, 'Picture', array('alt' => $value->title, 'class' => '', 'title' => $value->title, 'style' => 'height:170px;width:230px;'));
         } else {
-            return CHtml::image(Yii::app()->baseUrl . '/uploads/resource/default.png', 'Picture', array('alt' => $value->title, 'class' => 'img-responsive', 'title' => $value->title, 'style' => 'height:120px;'));
+            return CHtml::image(Yii::app()->baseUrl . '/uploads/resource/default.png', 'Picture', array('alt' => $value->title, 'class' => '', 'title' => $value->title, 'style' => 'height:170px;width:230px;'));
         }
     }
 
@@ -257,6 +257,26 @@ class Resource extends CActiveRecord {
             }
         }
         return $property;
+    }
+
+    public static function get_related($id) {
+        $value = Resource::model()->findByAttributes(array('id' => $id));
+        if (empty($value->related_resource)) {
+            $in = 0;
+        } else {
+            $in = $value->related_resource;
+        }
+        $array = Resource::model()->findAll(
+                array(
+                    'select' => 'id,title,category,main_source',
+                    'condition' => 'status=1 AND id IN(' . $in . ')',
+                    'order' => 'hits DESC',
+        ));
+        echo '<ul>';
+        foreach ($array as $key => $value) {
+            echo '<li>' . CHtml::link('<i class="fa fa-sign-out"></i> ' . $value['title'], array('resource/view', 'id' => $value['id']), array()) . ' <small>[' . ResourceCategory::get_title($value['category']) . ']</small></li>';
+        }
+        echo '</ul>';
     }
 
 }

@@ -57,7 +57,7 @@ $this->pageTitle = Yii::app()->name;
     $this->widget('zii.widgets.CListView', array(
         'dataProvider' => $dataProvider_editorial,
         'template' => '{items}{pager}',
-        'itemView' => '_view',
+        'itemView' => '_view2',
         'pager' => array(
             'header' => '',
             'prevPageLabel' => '<i class="fa fa-backward"></i>',

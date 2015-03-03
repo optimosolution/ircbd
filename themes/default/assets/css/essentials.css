@@ -1482,7 +1482,7 @@ ul.isotope {
  **************************************************************** **/
 hr {
 	border:0;
-	margin:60px 0;
+	margin:15px 0;
 	border-top:#ddd 1px solid;
 	border-bottom:#fff 1px solid;
 }
@@ -1614,7 +1614,6 @@ div.countTo label {
 }
 
 .countTo .boxed {
-	margin-top:60px;
 	border:#ddd 1px solid;
 	padding-top:20px;
 	padding-bottom:20px;

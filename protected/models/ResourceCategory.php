@@ -109,7 +109,6 @@ class ResourceCategory extends CActiveRecord {
                     'condition' => '',
                     'order' => 'ordering, resource_category',
         ));
-        echo '<h3>CATEGORY</h3>';
         echo '<ul>';
         foreach ($array as $key => $value) {
             echo '<li>' . CHtml::link('<i class="fa fa-sign-out"></i> ' . $value['resource_category'], array('resource/category', 'id' => $value['id']), array('target' => '_blank')) . ' [' . Resource::count_category($value['id']) . ']</li>';
