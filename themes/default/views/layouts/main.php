@@ -78,7 +78,7 @@
                         <div class="navbar-collapse nav-main-collapse collapse">
                             <nav class="nav-main">
                                 <ul id="topMain" class="nav nav-pills nav-main">
-                                    <?php echo '<li class="mega-menu active">' . CHtml::link('<i class="fa fa-home"></i> HOME', array('site/index'), array('class' => '')) . '</li>'; ?>
+                                    <?php //echo '<li class="mega-menu active">' . CHtml::link('<i class="fa fa-home"></i> HOME', array('site/index'), array('class' => '')) . '</li>'; ?>
                                     <?php
                                     $array = ResourceFor::model()->findAll(array('order' => 'ordering'));
                                     foreach ($array as $key => $value) {

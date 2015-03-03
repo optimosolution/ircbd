@@ -127,24 +127,8 @@
                 </div>
                 <!-- RECENT,POPULAR -->
                 <div class="widget">
-                    <!-- TABS -->
-                    <div class="tabs nomargin-top">
-                        <!-- tabs -->
-                        <ul class="nav nav-tabs nav-justified">
-                            <li class="active"><a href="#tab1" data-toggle="tab">POPULAR</a></li>
-                            <li><a href="#tab2" data-toggle="tab">RECENT</a></li>
-                        </ul>
-                        <!-- tabs content -->
-                        <div class="tab-content">
-                            <div id="tab1" class="tab-pane active">
-                                <?php Resource::get_popular(); ?>
-                            </div>
-                            <div id="tab2" class="tab-pane"><!-- tab content -->
-                                <?php Resource::get_recent(); ?>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- /TABS -->
+                    <h3>SALAT TIMING</h3>
+                    <iframe src="http://www.islamicfinder.org/prayer_service.php?country=bangladesh&city=dhaka&state=81&zipcode=&latitude=23.7231&longitude=90.4086&timezone=6&HanfiShafi=1&pmethod=3&fajrTwilight1=10&fajrTwilight2=10&ishaTwilight=10&ishaInterval=30&dhuhrInterval=1&maghribInterval=1&dayLight=0&page_background=&table_background=&table_lines=&text_color=&link_color=&prayerFajr=&prayerSunrise=&prayerDhuhr=&prayerAsr=&prayerMaghrib=&prayerIsha=&lang=" frameborder=0 width="260" height="280" marginwidth=0 marginheight=0 scrolling="no"> </iframe>
                 </div>
                 <!-- /RECENT,POPULAR -->
                 <!-- categories -->
@@ -155,11 +139,6 @@
                 <!-- author -->
                 <div class="widget">
                     <?php Author::get_author_list(); ?>
-                </div>
-                <!-- tags -->
-                <div class="widget">
-                    <h4>TAGS</h4>
-<!--                    <a class="tag label label-default light" href="#"><i class="fa fa-tags"></i> Business</a>                     -->
                 </div>
             </div>
             <!-- /BLOG SIDEBAR -->

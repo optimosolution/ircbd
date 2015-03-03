@@ -75,13 +75,26 @@ $this->breadcrumbs = array(
                     'ordering',
                     'hits',
                     array(
+                        'name' => 'related_resource',
+                        'type' => 'raw',
+                        'value' => Resource::get_related_resource($model->related_resource),
+                    ),
+                    array(
                         'name' => 'created_on',
                         'type' => 'raw',
                         'value' => UserAdmin::get_date_time($model->created_on),
                     ),
                     array(
+                        'name' => 'editorial_choice',
+                        'value' => $model->editorial_choice ? "Yes" : "No",
+                    ),
+                    array(
+                        'name' => 'featured',
+                        'value' => $model->featured ? "Yes" : "No",
+                    ),
+                    array(
                         'name' => 'status',
-                        'value' => $model->status ? "Yes" : "No",
+                        'value' => $model->status ? "Active" : "Inactive",
                     ),
                 ),
             ));

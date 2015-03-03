@@ -106,11 +106,6 @@
                 <div class="widget">
                     <?php Author::get_author_list(); ?>
                 </div>
-                <!-- tags -->
-                <div class="widget">
-                    <h4>TAGS</h4>
-<!--                    <a class="tag label label-default light" href="#"><i class="fa fa-tags"></i> Business</a>                     -->
-                </div>
             </div>
             <!-- /BLOG SIDEBAR -->
         </div>

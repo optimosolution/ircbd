@@ -107,6 +107,18 @@ $('.search-form form').submit(function(){
                     ),
                     'hits',
                     array(
+                        'name' => 'editorial_choice',
+                        'value' => '$data->editorial_choice?Yii::t(\'app\',\'Yes\'):Yii::t(\'app\', \'No\')',
+                        'filter' => array('' => Yii::t('app', 'All'), '0' => Yii::t('app', 'No'), '1' => Yii::t('app', 'Yes')),
+                        'htmlOptions' => array('style' => "text-align:center;"),
+                    ),
+                    array(
+                        'name' => 'featured',
+                        'value' => '$data->featured?Yii::t(\'app\',\'Yes\'):Yii::t(\'app\', \'No\')',
+                        'filter' => array('' => Yii::t('app', 'All'), '0' => Yii::t('app', 'No'), '1' => Yii::t('app', 'Yes')),
+                        'htmlOptions' => array('style' => "text-align:center;"),
+                    ),
+                    array(
                         'name' => 'status',
                         'value' => '$data->status?Yii::t(\'app\',\'Active\'):Yii::t(\'app\', \'Inactive\')',
                         'filter' => array('' => Yii::t('app', 'All'), '0' => Yii::t('app', 'Inactive'), '1' => Yii::t('app', 'Active')),

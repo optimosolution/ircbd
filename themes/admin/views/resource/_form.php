@@ -39,7 +39,10 @@
     <?php echo $form->textFieldControlGroup($model, 'location', array('span' => 5, 'maxlength' => 250)); ?>
     <?php echo $form->textFieldControlGroup($model, 'created_by', array('span' => 5, 'maxlength' => 150)); ?>
     <?php echo $form->textFieldControlGroup($model, 'ordering', array('span' => 5)); ?>
-    <?php echo $form->textFieldControlGroup($model, 'hits', array('span' => 5)); ?>
+    <?php echo $form->textFieldControlGroup($model, 'hits', array('span' => 5)); ?>    
+    <?php echo $form->dropDownListControlGroup($model, 'related_resource', CHtml::listData(Resource::model()->findAll(array('condition' => 'status=1', 'order' => 'title')), 'id', 'title'), array('data-placeholder' => 'Choose related resource...', 'multiple' => true, 'class' => 'chosen-select span5')); ?>   
+    <?php echo $form->dropDownListControlGroup($model, 'editorial_choice', array('1' => 'Yes', '0' => 'No'), array('class' => 'span5')); ?>    
+    <?php echo $form->dropDownListControlGroup($model, 'featured', array('1' => 'Yes', '0' => 'No'), array('class' => 'span5')); ?>    
     <?php echo $form->dropDownListControlGroup($model, 'status', array('1' => 'Yes', '0' => 'No'), array('class' => 'span5')); ?>    
     <div class="form-actions">
         <?php

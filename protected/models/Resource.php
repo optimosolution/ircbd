@@ -43,9 +43,9 @@ class Resource extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('title', 'required'),
-            array('category, resource_for, author_id, ordering, hits, status', 'numerical', 'integerOnly' => true),
+            array('category, resource_for, author_id, ordering, hits, status, editorial_choice, featured', 'numerical', 'integerOnly' => true),
             array('code', 'length', 'max' => 11),
-            array('title, size_info, main_source, mirror1, mirror2, location', 'length', 'max' => 250),
+            array('title, size_info, main_source, mirror1, mirror2, location, related_resource', 'length', 'max' => 250),
             array('resource_type', 'length', 'max' => 50),
             array('img_location', 'length', 'max' => 100),
             array('co_author', 'length', 'max' => 500),
@@ -54,7 +54,7 @@ class Resource extends CActiveRecord {
             array('img_location', 'file', 'types' => 'jpg,jpeg,gif,png', 'allowEmpty' => true, 'minSize' => 2, 'maxSize' => 1024 * 1024 * 5, 'tooLarge' => 'The file was larger than 5MB. Please upload a smaller file.', 'wrongType' => 'File format was not supported.', 'tooSmall' => 'File size was too small or empty.'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, code, title, category, resource_type, resource_for, size_info, sort_description, img_location, author_id, co_author, search_text, ordering, hits, main_source, mirror1, mirror2, location, created_by, created_on, status', 'safe', 'on' => 'search'),
+            array('id, code, title, category, resource_type, resource_for, size_info, sort_description, img_location, author_id, co_author, search_text, ordering, hits, main_source, mirror1, mirror2, location, created_by, created_on, status, related_resource, editorial_choice, featured', 'safe', 'on' => 'search'),
         );
     }
 
@@ -94,6 +94,9 @@ class Resource extends CActiveRecord {
             'created_by' => 'Created By',
             'created_on' => 'Created On',
             'status' => 'Status',
+            'related_resource' => 'Related Resource',
+            'editorial_choice' => 'Editorial choice',
+            'featured' => 'Featured',
         );
     }
 
@@ -135,6 +138,9 @@ class Resource extends CActiveRecord {
         $criteria->compare('created_by', $this->created_by, true);
         $criteria->compare('created_on', $this->created_on, true);
         $criteria->compare('status', $this->status);
+        $criteria->compare('related_resource', $this->related_resource, true);
+        $criteria->compare('editorial_choice', $this->editorial_choice);
+        $criteria->compare('featured', $this->featured);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,
@@ -227,6 +233,30 @@ class Resource extends CActiveRecord {
         } else {
             return CHtml::image(Yii::app()->baseUrl . '/uploads/resource/default.png', 'Picture', array('alt' => $value->title, 'class' => 'img-circle', 'title' => $value->title, 'style' => 'width:100px;'));
         }
+    }
+
+    public static function get_picture_responsive($id) {
+        $value = Resource::model()->findByAttributes(array('id' => $id));
+        $filePath = Yii::app()->basePath . '/../uploads/resource/' . $value->img_location;
+        if ((is_file($filePath)) && (file_exists($filePath))) {
+            return CHtml::image(Yii::app()->baseUrl . '/uploads/resource/' . $value->img_location, 'Picture', array('alt' => $value->title, 'class' => 'img-responsive', 'title' => $value->title, 'style' => 'height:120px;'));
+        } else {
+            return CHtml::image(Yii::app()->baseUrl . '/uploads/resource/default.png', 'Picture', array('alt' => $value->title, 'class' => 'img-responsive', 'title' => $value->title, 'style' => 'height:120px;'));
+        }
+    }
+
+    public static function get_related_resource($properties) {
+        $exval = explode(',', $properties);
+        $total = count($exval);
+        $property = '';
+        for ($i = 0; $i < $total; $i++) {
+            if ($i == ($total - 1)) {
+                $property .= Resource::get_title($exval[$i]);
+            } else {
+                $property .= Resource::get_title($exval[$i]) . ', ';
+            }
+        }
+        return $property;
     }
 
 }

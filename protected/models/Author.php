@@ -124,7 +124,7 @@ class Author extends CActiveRecord {
                     'select' => 'id,author_name',
                     'condition' => '',
                     'order' => 'RAND()',
-                    'limit' => '20',
+                    'limit' => '30',
         ));
         echo '<h3>AUTHOR</h3>';
         echo '<ul class="nav nav-list">';

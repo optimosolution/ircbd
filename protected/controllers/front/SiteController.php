@@ -55,9 +55,51 @@ class SiteController extends Controller {
         Yii::app()->clientScript->registerMetaTag('Collection of Islamic Speeches, Naats and Books. Official Website of Dawat-e-Islami, A global non-political movement for the propagation of Quran and Sunnah.', 'description');
         Yii::app()->clientScript->registerMetaTag("islam, quran, sunnah, tabligh, jamat, muslim, maulana ilyas qadri, barelvi, sunni, islamic books, naat, islamic speeches, islamic tv channel, fatwa, darulifta, ahlesunnat, rohani ilaj", 'keywords');
 
-        $dataProvider = new CActiveDataProvider('Resource');
+        //Recent Articles
+        $criteria = new CDbCriteria;
+        $criteria->addCondition('status=1');
+        $criteria->order = 'created_on DESC, id DESC';
+        $dataProvider = new CActiveDataProvider('Resource', array(
+            'criteria' => $criteria,
+            'pagination' => array(
+                'pageSize' => 9,
+            ),
+        ));
+        //Popular Articles
+        $criteria_popular = new CDbCriteria;
+        $criteria_popular->addCondition('status=1');
+        $criteria_popular->order = 'hits DESC';
+        $dataProvider_popular = new CActiveDataProvider('Resource', array(
+            'criteria' => $criteria_popular,
+            'pagination' => array(
+                'pageSize' => 9,
+            ),
+        ));
+        //Editorial choice
+        $criteria_editorial = new CDbCriteria;
+        $criteria_editorial->addCondition('status=1 AND editorial_choice=1');
+        $criteria_editorial->order = 'hits DESC, created_on DESC';
+        $dataProvider_editorial = new CActiveDataProvider('Resource', array(
+            'criteria' => $criteria_editorial,
+            'pagination' => array(
+                'pageSize' => 5,
+            ),
+        ));
+        //Featured articles
+        $criteria_featured = new CDbCriteria;
+        $criteria_featured->addCondition('status=1 AND featured=1');
+        $criteria_featured->order = 'hits DESC, created_on DESC';
+        $dataProvider_featured = new CActiveDataProvider('Resource', array(
+            'criteria' => $criteria_featured,
+            'pagination' => array(
+                'pageSize' => 5,
+            ),
+        ));
         $this->render('index', array(
             'dataProvider' => $dataProvider,
+            'dataProvider_popular' => $dataProvider_popular,
+            'dataProvider_editorial' => $dataProvider_editorial,
+            'dataProvider_featured' => $dataProvider_featured,
         ));
     }
 
