@@ -103,7 +103,7 @@ class ResourceController extends Controller {
         $criteria = new CDbCriteria;
         $criteria->compare('status', 1, false, 'AND');
         if (isset($_REQUEST['q']) && !empty($_REQUEST['q']))
-            $criteria->addCondition('search_text LIKE "' . $_REQUEST['q'] . '%"');
+            $criteria->addCondition('search_text LIKE "%' . $_REQUEST['q'] . '%"');
         if (isset($_REQUEST['category']) && !empty($_REQUEST['category']))
             $criteria->compare('category', (int) $_REQUEST['category'], false, 'AND');
         if (isset($_REQUEST['for']) && !empty($_REQUEST['for']))

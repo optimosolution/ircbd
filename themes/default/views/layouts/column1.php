@@ -10,33 +10,6 @@
             <!-- /BLOG ARTICLE LIST -->
             <!-- BLOG SIDEBAR -->
             <div class="col-md-3 col-sm-3">                
-                <!-- search -->
-                <?php
-                $form = $this->beginWidget('CActiveForm', array(
-                    'id' => 'search-form',
-                    'enableAjaxValidation' => false,
-                    'action' => Yii::app()->createUrl('resource/search'),
-                    'htmlOptions' => array('class' => 'input-group')
-                ));
-                ?>
-                <?php
-                $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-                    'name' => 'q',
-                    // additional javascript options for the autocomplete plugin
-                    'options' => array(
-                        'minLength' => '1',
-                    ),
-                    'source' => $this->createUrl("resource/ajax"),
-                    'htmlOptions' => array(
-                        'class' => 'form-control',
-                        'placeholder' => 'Search Resource',
-                    ),
-                ));
-                ?>
-                <span class="input-group-btn">
-                    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
-                </span>                   
-                <?php $this->endWidget(); ?>
                 <!-- counters -->
                 <div class="widget">
                     <div class="row text-center countTo">

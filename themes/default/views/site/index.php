@@ -1,8 +1,33 @@
+<?php $this->pageTitle = Yii::app()->name; ?>
+<!-- search -->
 <?php
-$this->pageTitle = Yii::app()->name;
+$form = $this->beginWidget('CActiveForm', array(
+    'id' => 'search-form',
+    'enableAjaxValidation' => false,
+    'action' => Yii::app()->createUrl('resource/search'),
+    'htmlOptions' => array('class' => 'input-group', 'style' => 'margin-bottom:5px;')
+        ));
 ?>
-<h3><strong>RECENT</strong> ARTICLES</h3>
+<?php
+$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+    'name' => 'q',
+    // additional javascript options for the autocomplete plugin
+    'options' => array(
+        'minLength' => '1',
+    ),
+    'source' => $this->createUrl("resource/ajax"),
+    'htmlOptions' => array(
+        'class' => 'form-control',
+        'placeholder' => 'Search Resource',
+    ),
+));
+?>
+<span class="input-group-btn">
+    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+</span>                   
+<?php $this->endWidget(); ?>
 <div class="well">
+    <h3><strong>RECENT</strong> ARTICLES</h3>
     <?php
     $this->widget('zii.widgets.CListView', array(
         'dataProvider' => $dataProvider,
@@ -26,8 +51,8 @@ $this->pageTitle = Yii::app()->name;
     ?>
 </div>
 <hr />
-<h3><strong>POPULAR</strong> ARTICLES</h3>
 <div class="well">
+    <h3><strong>POPULAR</strong> ARTICLES</h3>
     <?php
     $this->widget('zii.widgets.CListView', array(
         'dataProvider' => $dataProvider_popular,
