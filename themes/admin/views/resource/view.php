@@ -96,6 +96,11 @@ $this->breadcrumbs = array(
                         'name' => 'status',
                         'value' => $model->status ? "Active" : "Inactive",
                     ),
+                    array(
+                        'name' => 'pricing_policy',
+                        'type' => 'raw',
+                        'value' => $model->pricing_policy,
+                    ),
                 ),
             ));
             ?>

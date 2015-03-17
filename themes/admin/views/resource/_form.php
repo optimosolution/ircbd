@@ -49,7 +49,8 @@
         <div class="span6">  
             <?php echo $form->dropDownListControlGroup($model, 'author_id', CHtml::listData(Author::model()->findAll(array('condition' => '', "order" => "ordering, author_name")), 'id', 'author_name'), array('empty' => '--please select--', 'class' => 'span12')); ?>
         </div>
-    </div><div class="row-fluid">
+    </div>
+    <div class="row-fluid">
         <div class="span8">   
             <?php echo $form->textAreaControlGroup($model, 'sort_description', array('rows' => 2, 'span' => 12)); ?>
         </div>
@@ -101,6 +102,11 @@
             <?php echo $form->dropDownListControlGroup($model, 'status', array('1' => 'Yes', '0' => 'No'), array('class' => 'span12')); ?>
         </div>
         <div class="span2">            
+        </div>
+    </div>
+    <div class="row-fluid">
+        <div class="span12">   
+            <?php echo $form->textAreaControlGroup($model, 'pricing_policy', array('rows' => 1, 'span' => 12)); ?>
         </div>
     </div>
     <div class="form-actions">

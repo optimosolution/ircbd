@@ -116,4 +116,9 @@ class ResourceCategory extends CActiveRecord {
         echo '</ul>';
     }
 
+    public static function count_total() {
+        $value = ResourceCategory::model()->findAll();
+        return count($value);
+    }
+
 }

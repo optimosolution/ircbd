@@ -24,7 +24,7 @@
                 <!-- categories -->
                 <div class="widget">
                     <div class="sky-form boxed">
-                        <header>CATEGORY</header>
+                        <header>CATEGORY (<?php echo ResourceCategory::count_total(); ?>)</header>
                         <fieldset>
                             <?php ResourceCategory::get_category_list(); ?>
                         </fieldset>                        
@@ -34,7 +34,7 @@
                 <!-- author -->
                 <div class="widget">
                     <div class="sky-form boxed">
-                        <header>AUTHOR</header>
+                        <header>AUTHOR (<?php echo Author::count_total(); ?>)</header>
                         <fieldset>
                             <?php Author::get_author_list(); ?>
                         </fieldset>                        

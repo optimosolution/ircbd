@@ -13,7 +13,7 @@ $this->pageTitle = $model->title . ' - ' . Yii::app()->name;
             <span class="block"><i class="fa fa-user"></i> BY <?php echo CHtml::link(Author::get_author_name($model->author_id), array('resource/writer', 'id' => $model->author_id), array('target' => '_blank')); ?></span>
             <span class="block"><i class="fa fa-folder-open-o"></i> POSTED IN <?php echo CHtml::link(ResourceCategory::get_title($model->category), array('resource/category', 'id' => $model->category), array('target' => '_blank')); ?></span>
             <span class="block"><i class="fa fa-bullhorn"></i> FOR <?php echo CHtml::link(ResourceFor::get_title($model->resource_for), array('resource/index', 'id' => $model->resource_for), array('target' => '_blank')); ?></span>
-            <span class="block"><i class="fa fa-comments"></i> WITH <a href="blog-single-sidebar.html#comments">0 COMMENTS</a></span>
+            <span class="block"><i class="fa fa-comments"></i> WITH <?php echo CHtml::link(ResourceComment::count_comments($model->id) . ' COMMENTS', array('resource/view', 'id' => $model->id), array('target' => '_blank')); ?></span>
             <span class="block"><i class="fa fa-header"></i> VIEWED <?php echo $model->hits; ?></span>
         </span>
     </div>
@@ -22,10 +22,20 @@ $this->pageTitle = $model->title . ' - ' . Yii::app()->name;
             <?php echo $model->title . ' [' . $model->code . ']'; ?>
         </h2>
         <!-- blog short preview -->
-        <p class="dropcap"><?php echo $model->sort_description; ?></p>
+        <p class="dropcap"><?php echo $model->sort_description; ?></p>             
+        <?php
+        if (isset($model->pricing_policy))
+            echo $model->pricing_policy;
+        ?>
         <!-- read more button -->
         <div class="text-right">
             <?php echo CHtml::link('<i class="fa fa-sign-out"></i> MAIN SOURCE', $model->main_source, array('class' => 'read-more btn btn-xs', 'target' => '_blank')); ?>
+            <?php
+            if (!empty($model->mirror1))
+                echo CHtml::link('<i class="fa fa-sign-out"></i> SOURCE 1', $model->mirror1, array('class' => 'read-more btn btn-xs', 'target' => '_blank'));
+            if (!empty($model->mirror2))
+                echo CHtml::link('<i class="fa fa-sign-out"></i>  SOURCE 2', $model->mirror2, array('class' => 'read-more btn btn-xs', 'target' => '_blank'));
+            ?>
         </div>
         <hr class="half-margins invisible" />
         <!-- COMMENTS -->

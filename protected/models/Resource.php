@@ -50,11 +50,11 @@ class Resource extends CActiveRecord {
             array('img_location', 'length', 'max' => 100),
             array('co_author', 'length', 'max' => 500),
             array('created_by', 'length', 'max' => 150),
-            array('sort_description, search_text, created_on', 'safe'),
+            array('sort_description, search_text, pricing_policy, created_on', 'safe'),
             array('img_location', 'file', 'types' => 'jpg,jpeg,gif,png', 'allowEmpty' => true, 'minSize' => 2, 'maxSize' => 1024 * 1024 * 5, 'tooLarge' => 'The file was larger than 5MB. Please upload a smaller file.', 'wrongType' => 'File format was not supported.', 'tooSmall' => 'File size was too small or empty.'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
-            array('id, code, title, category, resource_type, resource_for, size_info, sort_description, img_location, author_id, co_author, search_text, ordering, hits, main_source, mirror1, mirror2, location, created_by, created_on, status, related_resource, editorial_choice, featured', 'safe', 'on' => 'search'),
+            array('id, code, title, category, resource_type, resource_for, size_info, sort_description, img_location, author_id, co_author, search_text, ordering, hits, main_source, mirror1, mirror2, location, created_by, created_on, status, related_resource, editorial_choice, featured, pricing_policy', 'safe', 'on' => 'search'),
         );
     }
 
@@ -97,6 +97,7 @@ class Resource extends CActiveRecord {
             'related_resource' => 'Related Resource',
             'editorial_choice' => 'Editorial choice',
             'featured' => 'Featured',
+            'pricing_policy'=>'Pricing Policy',
         );
     }
 
@@ -141,6 +142,7 @@ class Resource extends CActiveRecord {
         $criteria->compare('related_resource', $this->related_resource, true);
         $criteria->compare('editorial_choice', $this->editorial_choice);
         $criteria->compare('featured', $this->featured);
+        $criteria->compare('pricing_policy', $this->pricing_policy);
 
         return new CActiveDataProvider($this, array(
             'criteria' => $criteria,

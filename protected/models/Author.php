@@ -133,7 +133,7 @@ class Author extends CActiveRecord {
         echo '<li>' . CHtml::link('<i class="fa fa-user"></i> MORE AUTHOR', array('resource/authors'), array('target' => '_blank')) . '</li>';
         echo '</ul>';
     }
-    
+
     public static function get_picture($id) {
         $value = Author::model()->findByAttributes(array('id' => $id));
         $filePath = Yii::app()->basePath . '/../uploads/author/' . $value->author_photo;
@@ -142,6 +142,11 @@ class Author extends CActiveRecord {
         } else {
             return CHtml::image(Yii::app()->baseUrl . '/uploads/author/default.png', 'Picture', array('alt' => $value->author_name, 'class' => 'img-circle', 'title' => $value->author_name, 'style' => 'width:100px;'));
         }
+    }
+
+    public static function count_total() {
+        $value = Author::model()->findAll();
+        return count($value);
     }
 
 }

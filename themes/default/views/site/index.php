@@ -5,28 +5,41 @@ $form = $this->beginWidget('CActiveForm', array(
     'id' => 'search-form',
     'enableAjaxValidation' => false,
     'action' => Yii::app()->createUrl('resource/search'),
-    'htmlOptions' => array('class' => 'input-group', 'style' => 'margin-bottom:5px;')
+    'htmlOptions' => array('class' => 'input-group')
         ));
 ?>
-<?php
-$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
-    'name' => 'q',
-    // additional javascript options for the autocomplete plugin
-    'options' => array(
-        'minLength' => '1',
-    ),
-    'source' => $this->createUrl("resource/ajax"),
-    'htmlOptions' => array(
-        'class' => 'form-control',
-        'placeholder' => 'Search Resource',
-    ),
-));
-?>
-<span class="input-group-btn">
-    <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
-</span>                   
+<div class="row well">
+    <div class="col-sm-5">
+        <?php
+        $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
+            'name' => 'q',
+            // additional javascript options for the autocomplete plugin
+            'options' => array(
+                'minLength' => '1',
+            ),
+            'source' => $this->createUrl("resource/ajax"),
+            'htmlOptions' => array(
+                'class' => 'form-control',
+                'placeholder' => 'Search Resource',
+            ),
+        ));
+        ?>
+    </div>
+    <div class="col-sm-2">
+        <?php echo CHtml::dropDownList('category', isset($_REQUEST['category']) ? CHtml::encode($_REQUEST['category']) : '', CHtml::listData(ResourceCategory::model()->findAll(array('condition' => '', 'order' => 'ordering')), 'id', 'resource_category'), array('empty' => '-category-', 'class' => 'form-control')); ?>
+    </div>
+    <div class="col-sm-2">
+        <?php echo CHtml::dropDownList('for', isset($_REQUEST['for']) ? CHtml::encode($_REQUEST['for']) : '', CHtml::listData(ResourceFor::model()->findAll(array('condition' => '', 'order' => 'ordering')), 'id', 'resource_for'), array('empty' => '-type-', 'class' => 'form-control')); ?>
+    </div>
+    <div class="col-sm-2">
+        <?php echo CHtml::dropDownList('author', isset($_REQUEST['author']) ? CHtml::encode($_REQUEST['author']) : '', CHtml::listData(Author::model()->findAll(array('condition' => '', 'order' => 'ordering')), 'id', 'author_name'), array('empty' => '-author-', 'class' => 'form-control')); ?>
+    </div>    
+    <div class="col-sm-1">
+        <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+    </div>
+</div>
 <?php $this->endWidget(); ?>
-<div class="well">
+<div class="row well">
     <h3><strong>RECENT</strong> ARTICLES</h3>
     <?php
     $this->widget('zii.widgets.CListView', array(
@@ -51,7 +64,7 @@ $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
     ?>
 </div>
 <hr />
-<div class="well">
+<div class="row well">
     <h3><strong>POPULAR</strong> ARTICLES</h3>
     <?php
     $this->widget('zii.widgets.CListView', array(
@@ -77,7 +90,7 @@ $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 </div>
 <hr />
 <h3><strong>EDITORIAL</strong> CHOICE</h3>
-<div class="well">
+<div class="row well">
     <?php
     $this->widget('zii.widgets.CListView', array(
         'dataProvider' => $dataProvider_editorial,
@@ -102,7 +115,7 @@ $this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 </div>
 <hr />
 <h3><strong>FEATURED</strong> ARTICLES</h3>
-<div class="well">
+<div class="row well">
     <?php
     $this->widget('zii.widgets.CListView', array(
         'dataProvider' => $dataProvider_featured,

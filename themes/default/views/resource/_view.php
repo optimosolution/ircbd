@@ -23,6 +23,10 @@
                     <?php echo CHtml::link($data->title . ' [' . $data->code . ']', array('resource/view', 'id' => $data->id), array('target' => '_blank')); ?>
                 </h4>
                 <?php echo mb_substr($data->sort_description, 0, 250, 'UTF-8') . '...'; ?>
+                <?php
+                if (isset($data->pricing_policy))
+                    echo $data->pricing_policy;
+                ?>
             </div>
         </div>
     </div>
