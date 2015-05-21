@@ -4,9 +4,8 @@
 
 $this->pageTitle = 'Events - ' . Yii::app()->name;
 ?>
-<h3>Events</h3>
+<h3>Events <?php echo CHtml::link('NEW', array('event/create'), array('class' => 'btn btn-primary btn-sm')); ?></h3>
 <?php
-
 $this->widget('zii.widgets.CListView', array(
     'dataProvider' => $dataProvider,
     'template' => '{items}{pager}',

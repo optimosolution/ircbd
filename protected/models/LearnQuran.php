@@ -112,8 +112,13 @@ class LearnQuran extends CActiveRecord {
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
-    
+
     public static function countLearnQuran() {
+        $value = LearnQuran::model()->findAll();
+        return count($value);
+    }
+
+    public static function count_learnQuran() {
         $value = LearnQuran::model()->findAll();
         return count($value);
     }

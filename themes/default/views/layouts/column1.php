@@ -21,6 +21,28 @@
                         </div>                    
                     </div>
                 </div>
+                <!-- Events -->
+                <div class="widget">
+                    <div class="row text-center countTo">
+                        <div class="col-md-12 col-sm-12">
+                            <span class="boxed radius3">
+                                <strong class="styleColor" data-to="<?php echo Event::count_event(); ?>"><?php echo Event::count_event(); ?></strong>
+                                <?php echo CHtml::link('<h3>EVENTS</h3>', array('event/index'), array('class' => '')); ?>
+                            </span>
+                        </div>                    
+                    </div>
+                </div>
+                <!-- Learn Quran -->
+                <div class="widget">
+                    <div class="row text-center countTo">
+                        <div class="col-md-12 col-sm-12">
+                            <span class="boxed radius3">
+                                <strong class="styleColor" data-to="<?php echo LearnQuran::count_learnQuran(); ?>"><?php echo LearnQuran::count_learnQuran(); ?></strong>
+                                <?php echo CHtml::link('<h3>LEARN QURAN</h3>', array('learnQuran/index'), array('class' => '')); ?>
+                            </span>
+                        </div>                    
+                    </div>
+                </div>
                 <!-- categories -->
                 <div class="widget">
                     <div class="sky-form boxed">

@@ -4,7 +4,7 @@
 
 $this->pageTitle = 'Learn Quran - ' . Yii::app()->name;
 ?>
-<h3>Learn Quran</h3>
+<h3>Learn Quran <?php echo CHtml::link('NEW', array('learnQuran/create'), array('class' => 'btn btn-primary btn-sm')); ?></h3>
 <?php
 $this->widget('zii.widgets.CListView', array(
     'dataProvider' => $dataProvider,

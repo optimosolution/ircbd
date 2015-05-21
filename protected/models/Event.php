@@ -129,8 +129,13 @@ class Event extends CActiveRecord {
     public static function model($className = __CLASS__) {
         return parent::model($className);
     }
-    
+
     public static function countEvent() {
+        $value = Event::model()->findAll();
+        return count($value);
+    }
+
+    public static function count_event() {
         $value = Event::model()->findAll();
         return count($value);
     }
