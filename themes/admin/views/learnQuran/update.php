@@ -7,7 +7,7 @@
 $this->pageTitle = 'Edit Learn Quran - ' . Yii::app()->name;
 $this->breadcrumbs = array(
     'Learn Qurans' => array('admin'),
-    $model->id => array('view', 'id' => $model->id),
+    //$model->id => array('view', 'id' => $model->id),
     'Update',
 );
 ?>

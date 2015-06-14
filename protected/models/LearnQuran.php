@@ -32,9 +32,9 @@ class LearnQuran extends CActiveRecord {
         // will receive user inputs.
         return array(
             array('subject, city, area, place, event_date, event_time', 'required'),
-            array('city, status', 'numerical', 'integerOnly' => true),
+            array('status', 'numerical', 'integerOnly' => true),
             array('subject', 'length', 'max' => 250),
-            array('area, place, event_time, teacher', 'length', 'max' => 150),
+            array('city, area, place, event_time, teacher', 'length', 'max' => 150),
             array('remarks', 'safe'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
@@ -89,7 +89,7 @@ class LearnQuran extends CActiveRecord {
 
         $criteria->compare('id', $this->id);
         $criteria->compare('subject', $this->subject, true);
-        $criteria->compare('city', $this->city);
+        $criteria->compare('city', $this->city, true);
         $criteria->compare('area', $this->area, true);
         $criteria->compare('place', $this->place, true);
         $criteria->compare('event_date', $this->event_date, true);
